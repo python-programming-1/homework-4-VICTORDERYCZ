@@ -20,10 +20,12 @@ def get_computer_choice(player_history):
         computer = random.choice(['rock', 'paper', 'scissors'])
     return computer
         
-def input_human_choice():
+def input_human_choice(human_score, computer_score):
     option_list = ['rock', 'paper', 'scissors']
     human = str(input('Make a move! (rock/paper/scissors): ')).lower()
     while human not in option_list:
+        if human == 'sc':
+            print('human: ' + str(human_score) + ', computer: ' + str(computer_score) + '.')
         print('You must enter "rock," or "paper," or "scissors."')
         human = str(input('Make a move! (rock/paper/scissors): ')).lower()
     return human 
@@ -49,17 +51,22 @@ computer_score = 0
 human_score = 0
 run = 'Y'
 print('Welcome to Rock, Paper, Scissors.')
-while run == 'Y' or run == 'YES':
+while run == 'Y':
     computer = get_computer_choice(player_history)
-    human = input_human_choice()
+    human = input_human_choice(human_score, computer_score)
     player_history = get_player_history(human)
     computer_score, human_score, win_lose = get_scores_and_win_lose(human, computer, human_score, computer_score)
     print('You chose ' + human + ' and the computer chose ' + computer + '. You ' + win_lose + '!')
     see_score = str(input('Enter "sc" if you like to see your the scores: ')).upper()
     if see_score == 'SC':
         print('human: ' + str(human_score) + ', computer: ' + str(computer_score) + '.')
+    yes_no_list = ['Y', 'N']
     run = str(input('Do you want to play again? (y/n): ')).upper()
+    while run not in yes_no_list:
+        if run == 'SC':
+            print('human: ' + str(human_score) + ', computer: ' + str(computer_score) + '.')
+        run = str(input('Do you want to play again? (y/n): ')).upper()
+            
 print('Thanks, bye!')
-
 
 
